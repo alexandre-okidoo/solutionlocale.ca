@@ -1,5 +1,9 @@
 # Changelog
 
+# Next
+- Removed redundent show button on show page's moderation tool.
+- Change slugs on name update.
+
 # 1.15.1 (2020-03-29)
 - Corrected permission needed to show link to backend
 
