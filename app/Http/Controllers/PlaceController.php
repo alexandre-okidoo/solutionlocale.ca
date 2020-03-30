@@ -29,10 +29,6 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        if (Gate::denies('do-moderation')) {
-            abort(401);
-        }
-
         return view('places.create');
     }
 
@@ -49,10 +45,6 @@ class PlaceController extends Controller
      */
     public function store(StorePlaces $request)
     {
-        if (Gate::denies('do-moderation')) {
-            abort(401);
-        }
-
         $place = Place::create([
             'name' => $request->name,
             'address' => $request->addressjson['name'],
@@ -136,10 +128,6 @@ class PlaceController extends Controller
      */
     public function edit(Place $place)
     {
-        if (Gate::denies('do-moderation')) {
-            abort(401);
-        }
-
         return view('places.edit')->with(['place' => $place]);
     }
 
@@ -152,10 +140,6 @@ class PlaceController extends Controller
      */
     public function update(Request $request, Place $place)
     {
-        if (Gate::denies('do-moderation')) {
-            abort(401);
-        }
-
         $place->name = $request->name;
         $place->region_id = $request->region_id;
         $place->phoneNumber = $request->phoneNumber;

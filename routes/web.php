@@ -20,22 +20,22 @@ Route::middleware(['auth', 'can:access-backend'])->group(function () {
     Route::get('/user/{user}', 'UserController@edit')->name('users.edit');
     Route::put('/user/{user}', 'UserController@update')->name('users.update');
 
-    Route::get('/distribution/ajout', 'DeliveryTypeController@create')->name('deliveryTypes.create');
-    Route::post('/distribution', 'DeliveryTypeController@store')->name('deliveryTypes.store');
+    Route::get('/distribution/ajout', 'DeliveryTypeController@create')->name('deliveryTypes.create')->middleware('can:do-admin');
+    Route::post('/distribution', 'DeliveryTypeController@store')->name('deliveryTypes.store')->middleware('can:do-admin');
 
-    Route::get('/moderation', 'ModerationController@index')->name('moderation.index');
-    Route::get('/moderation/{region:slug}', 'ModerationController@show')->name('moderation.show');
-    Route::get('/moderation/place/{place:slug}/approbation', 'ModerationController@store')->name('moderation.approve');
-    Route::get('/moderation/places/{place:slug}/enlever', 'ModerationController@delete')->name('moderation.delete');
-    Route::post('/moderation/places/{place:slug}/enlever', 'ModerationController@destroy')->name('moderation.destroy');
+    Route::get('/moderation', 'ModerationController@index')->name('moderation.index')->middleware('can:do-moderation');
+    Route::get('/moderation/{region:slug}', 'ModerationController@show')->name('moderation.show')->middleware('can:do-moderation');
+    Route::get('/moderation/place/{place:slug}/approbation', 'ModerationController@store')->name('moderation.approve')->middleware('can:do-moderation');
+    Route::get('/moderation/places/{place:slug}/enlever', 'ModerationController@delete')->name('moderation.delete')->middleware('can:do-moderation');
+    Route::post('/moderation/places/{place:slug}/enlever', 'ModerationController@destroy')->name('moderation.destroy')->middleware('can:do-moderation');
 
-    Route::get('/places/ajout', 'PlaceController@create')->name('places.create');
-    Route::post('/places', 'PlaceController@store')->name('places.store');
-    Route::get('/places/{place:slug}/modifier', 'PlaceController@edit')->name('places.edit');
-    Route::put('/places/{place:slug}', 'PlaceController@update')->name('places.update');
+    Route::get('/places/ajout', 'PlaceController@create')->name('places.create')->middleware('can:do-moderation');
+    Route::post('/places', 'PlaceController@store')->name('places.store')->middleware('can:do-moderation');
+    Route::get('/places/{place:slug}/modifier', 'PlaceController@edit')->name('places.edit')->middleware('can:do-moderation');
+    Route::put('/places/{place:slug}', 'PlaceController@update')->name('places.update')->middleware('can:do-moderation');
 
-    Route::get('/categorie/ajout', 'CategoryController@create')->name('categories.create');
-    Route::post('/categorie', 'CategoryController@store')->name('categories.store');
+    Route::get('/categorie/ajout', 'CategoryController@create')->name('categories.create')->middleware('can:do-admin');
+    Route::post('/categorie', 'CategoryController@store')->name('categories.store')->middleware('can:do-admin');
 });
 
 Auth::routes(['register' => false]);

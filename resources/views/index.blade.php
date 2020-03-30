@@ -23,7 +23,7 @@
 
       @if(isset($category))
       <h2 class="text-center mb-5">{{ $category->name }}</h1>
-      @endif      
+      @endif
 
       <div class="row">
         @if(!$is_regional)
